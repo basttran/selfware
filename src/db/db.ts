@@ -20,15 +20,18 @@ db.version(1).stores({
 
 export { db };
 
-/** Read the settings row, seeding defaults on first run. */
+/**
+ * Read the settings row, falling back to defaults when absent.
+ * READ-ONLY — safe to call inside a Dexie `liveQuery` querier (no writes there,
+ * or liveQuery throws and crashes the React tree). The row is created lazily by
+ * the first updateSettings() call.
+ */
 export async function getSettings(): Promise<Settings> {
   const row = await db.settings.get(SETTINGS_KEY);
-  if (row) return row;
-  await db.settings.put({ id: SETTINGS_KEY, ...DEFAULT_SETTINGS });
-  return DEFAULT_SETTINGS;
+  return row ?? { id: SETTINGS_KEY, ...DEFAULT_SETTINGS };
 }
 
-/** Merge a partial update into the settings row. */
+/** Merge a partial update into the settings row (creating it if needed). */
 export async function updateSettings(patch: Partial<Settings>): Promise<void> {
   const current = await getSettings();
   await db.settings.put({ id: SETTINGS_KEY, ...current, ...patch });
