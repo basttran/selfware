@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+coverage
+documents
+
+# Inherited Comet workspace config — not part of this project, keep out of the public repo
+.claude
+SPEC.md
+
+*.tsbuildinfo

@@ -1,0 +1,224 @@
+{
+  "app": {
+    "name": "Selfware",
+    "tagline": "Vos colonnes de Beck, en douceur"
+  },
+  "common": {
+    "next": "Suivant",
+    "previous": "Précédent",
+    "skip": "Passer",
+    "save": "Enregistrer",
+    "finish": "Terminer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Éditer",
+    "export": "Exporter",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "optional": "facultatif",
+    "draft": "Brouillon"
+  },
+  "nav": {
+    "history": "Historique",
+    "settings": "Réglages",
+    "newRecord": "Nouvelle grille"
+  },
+  "history": {
+    "title": "Mes grilles",
+    "empty": "Aucune grille pour l'instant. Touchez « + » pour commencer.",
+    "draftBadge": "Brouillon",
+    "noEvent": "(événement non renseigné)",
+    "emotionsCount_one": "{{count}} émotion",
+    "emotionsCount_other": "{{count}} émotions"
+  },
+  "wizard": {
+    "progress": "Étape {{current}} / {{total}}",
+    "newTitle": "Nouvelle grille",
+    "editTitle": "Modifier la grille",
+    "leaveSavesDraft": "Quitter enregistre un brouillon",
+    "step": {
+      "event": {
+        "title": "Événement",
+        "subtitle": "Quand ?",
+        "hint": "Un événement précis, ou une suite de pensées / un souvenir, qui a conduit à une émotion désagréable.",
+        "placeholder": "Décrivez la situation déclencheuse…",
+        "dateLabel": "Date du fait",
+        "timeLabel": "Heure"
+      },
+      "emotions": {
+        "title": "Émotions",
+        "subtitle": "Je me sens…",
+        "hint": "Choisissez une ou plusieurs émotions et évaluez leur intensité de 1 à 10.",
+        "add": "Ajouter une émotion",
+        "empty": "Aucune émotion ajoutée."
+      },
+      "automaticThoughts": {
+        "title": "Pensées automatiques",
+        "subtitle": "Je me dis…",
+        "hint": "Notez les pensées spontanées qui accompagnent ces émotions.",
+        "placeholder": "Qu'est-ce qui vous a traversé l'esprit ?"
+      },
+      "supportingFacts": {
+        "title": "Faits qui soutiennent",
+        "subtitle": "Preuves pour",
+        "hint": "Recherchez des faits concrets qui appuient cette pensée automatique.",
+        "placeholder": "Quels faits soutiennent cette pensée ?"
+      },
+      "contradictingFacts": {
+        "title": "Faits qui contredisent",
+        "subtitle": "Preuves contre",
+        "hint": "Recherchez des faits concrets qui contredisent cette pensée automatique.",
+        "placeholder": "Quels faits contredisent cette pensée ?"
+      },
+      "alternativeThoughts": {
+        "title": "Pensées alternatives",
+        "subtitle": "Une pensée plus réaliste serait…",
+        "hint": "Identifiez la ou les distorsions, puis formulez une réaction plus réaliste.",
+        "placeholder": "Une pensée plus réaliste dans ce contexte…",
+        "distortionsLabel": "Distorsions repérées"
+      },
+      "result": {
+        "title": "Résultat",
+        "subtitle": "Et maintenant ?",
+        "hint": "Réévaluez l'intensité de chaque émotion. Y a-t-il une différence ?",
+        "before": "Au départ",
+        "now": "Maintenant",
+        "noEmotions": "Ajoutez d'abord des émotions à l'étape 2."
+      }
+    }
+  },
+  "emotion": {
+    "sadness": "Tristesse",
+    "anger": "Colère",
+    "fear": "Peur",
+    "disgust": "Dégoût",
+    "joy": "Joie",
+    "surprise": "Surprise",
+    "intensity": "Intensité",
+    "remove": "Retirer"
+  },
+  "distortion": {
+    "all-or-nothing": {
+      "name": "Pensée dichotomique (tout ou rien)",
+      "definition": "Penser que si une chose n'est pas exactement comme on le souhaite, c'est un échec. Une perte totale des nuances.",
+      "example": "« Si je n'ai pas été embauché, c'est que je ne vaux rien », « Si je n'ai pas 20/20, c'est que je suis nul. »"
+    },
+    "overgeneralization": {
+      "name": "Surgénéralisation",
+      "definition": "Construire des règles pour son comportement futur à partir de quelques événements négatifs passés.",
+      "example": "« Elle n'a pas voulu sortir avec moi ; je n'arriverai jamais à sortir avec quelqu'un. »"
+    },
+    "selective-abstraction": {
+      "name": "Abstraction sélective (filtre mental)",
+      "definition": "Un filtre mental qui ne laisse percevoir que le côté négatif des choses ; on se focalise sur les détails déplaisants.",
+      "example": "Une soirée agréable jugée « totalement gâchée » parce que quelqu'un a renversé du café sur sa chemise."
+    },
+    "disqualifying-the-positive": {
+      "name": "Disqualification du positif",
+      "definition": "Transformer une expérience neutre ou positive en expérience négative.",
+      "example": "« On me fait un compliment ? C'est faux, on dit ça juste pour me faire plaisir. »"
+    },
+    "jumping-to-conclusions": {
+      "name": "Conclusions hâtives",
+      "definition": "Imaginer des scénarios noirs sans preuve : lecture des pensées d'autrui, ou erreurs de voyance.",
+      "example": "« Il ne m'a pas rappelé, il ne me considère plus comme son ami », « Cette thérapie ne marchera pas. »"
+    },
+    "magnification-minimization": {
+      "name": "Exagération & minimisation",
+      "definition": "Exagérer ses erreurs et minimiser ses points forts.",
+      "example": "« J'ai fait une erreur, tout le monde va le savoir et je serai ridicule » ; « J'ai réussi, mais c'est juste de la chance. »"
+    },
+    "emotional-reasoning": {
+      "name": "Raisonnement émotionnel",
+      "definition": "Se servir de ses sentiments comme s'il s'agissait de preuves.",
+      "example": "« Je me sens désespéré, donc mes problèmes sont forcément impossibles à résoudre. »"
+    },
+    "should-statements": {
+      "name": "Fausses obligations (« je dois »)",
+      "definition": "Se fixer arbitrairement des buts à atteindre (je dois, je devrais…), pour soi ou pour les autres.",
+      "example": "« Je dois absolument faire le ménage. » ; « Après tout ce que j'ai fait, il pourrait au moins être reconnaissant. »"
+    },
+    "labeling": {
+      "name": "Étiquetage",
+      "definition": "Porter des jugements définitifs et émotionnellement chargés sur soi-même ou sur les autres.",
+      "example": "Dire « Je suis complètement nul » au lieu de « J'ai fait une erreur. »"
+    },
+    "personalization": {
+      "name": "Personnalisation",
+      "definition": "Se sentir responsable du comportement des autres.",
+      "example": "« Si mon fils ne travaille pas à l'école, c'est parce que je suis une mauvaise mère. »"
+    }
+  },
+  "detail": {
+    "createdAt": "Créée le {{date}}",
+    "updatedAt": "Modifiée le {{date}}",
+    "eventWhen": "Le {{date}}",
+    "sections": {
+      "event": "Événement",
+      "emotions": "Émotions",
+      "automaticThoughts": "Pensées automatiques",
+      "supportingFacts": "Faits qui soutiennent",
+      "contradictingFacts": "Faits qui contredisent",
+      "alternativeThoughts": "Pensées alternatives",
+      "distortions": "Distorsions",
+      "result": "Résultat"
+    },
+    "deleteConfirm": "Supprimer cette grille ? Cette action est définitive.",
+    "empty": "—"
+  },
+  "export": {
+    "title": "Exporter",
+    "layout": "Mise en page",
+    "layoutTable": "Tableau (A4 paysage)",
+    "layoutTableHint": "Idéal pour l'écran ou l'impression sur ordinateur.",
+    "layoutCard": "Fiche (A5 portrait)",
+    "layoutCardHint": "Compact, adapté au mobile.",
+    "scope": "Portée",
+    "scopeSingle": "Cette grille",
+    "scopeRange": "Une période",
+    "from": "Du",
+    "to": "Au",
+    "generate": "Générer le PDF",
+    "generating": "Génération…",
+    "share": "Partager",
+    "download": "Télécharger",
+    "noneInRange": "Aucune grille sur cette période.",
+    "fileName": "selfware"
+  },
+  "settings": {
+    "title": "Réglages",
+    "pin": {
+      "title": "Code d'accès",
+      "description": "Protégez l'ouverture de l'application par un code. Il ne chiffre pas les données.",
+      "enable": "Activer un code",
+      "disable": "Désactiver le code",
+      "set": "Définir le code",
+      "enter": "Entrez votre code",
+      "confirm": "Confirmez le code",
+      "mismatch": "Les codes ne correspondent pas.",
+      "wrong": "Code incorrect.",
+      "enabled": "Code activé.",
+      "disabled": "Code désactivé."
+    },
+    "data": {
+      "title": "Mes données",
+      "description": "Tout est stocké sur cet appareil. Exportez régulièrement pour ne rien perdre.",
+      "export": "Exporter mes données (JSON)",
+      "import": "Importer des données (JSON)",
+      "importConfirm": "Importer remplacera les grilles existantes. Continuer ?",
+      "imported": "Données importées.",
+      "importError": "Fichier invalide.",
+      "exported": "Données exportées."
+    },
+    "colors": {
+      "title": "Couleurs des émotions",
+      "description": "Personnalisez la couleur de chaque émotion.",
+      "reset": "Réinitialiser"
+    }
+  },
+  "pin": {
+    "title": "Selfware",
+    "prompt": "Entrez votre code",
+    "unlock": "Déverrouiller"
+  }
+}
