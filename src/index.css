@@ -32,8 +32,13 @@
   color-scheme: light dark;
 }
 
+/*
+ * Dark mode = override the raw CSS custom properties (NOT a nested @theme, which
+ * Tailwind v4 hoists into :root unconditionally). Utilities reference these vars,
+ * so overriding them here re-themes the whole app automatically with the system setting.
+ */
 @media (prefers-color-scheme: dark) {
-  @theme {
+  :root {
     --color-surface: #0f172a;
     --color-surface-raised: #1a2436;
     --color-border: #2a374d;
