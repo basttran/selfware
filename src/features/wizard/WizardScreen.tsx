@@ -8,9 +8,9 @@ import { createRecord, getRecord, saveRecord } from "@/db/records.ts";
 import { WizardStep } from "@/features/wizard/WizardStep.tsx";
 import {
   fromRecord,
+  hasStepInput,
   initialState,
   isWorthSaving,
-  SKIPPABLE,
   STEP_COUNT,
   STEPS,
   toDraft,
@@ -95,7 +95,7 @@ export function WizardScreen({ mode }: Props) {
 
   const stepKey = STEPS[state.step] ?? STEPS[0];
   const isLast = state.step === STEP_COUNT - 1;
-  const canSkip = SKIPPABLE.has(stepKey);
+  const stepHasInput = hasStepInput(state, stepKey);
   const showEventRecap =
     (stepKey === "emotions" || stepKey === "automaticThoughts") && state.event.trim().length > 0;
   const showThoughtsRecap =
@@ -180,16 +180,16 @@ export function WizardScreen({ mode }: Props) {
             <span>{t("wizard.progressLabel")}</span>
             <span>{t("wizard.progressCount", { current: state.step + 1, total: STEP_COUNT })}</span>
           </span>
-          <div className="flex flex-1 items-center justify-end gap-2">
-            {canSkip && !isLast && (
-              <Button variant="soft" onClick={() => goTo(state.step + 1)}>
-                {t("common.skip")}
-              </Button>
-            )}
+          <div className="flex flex-1 justify-end">
             {isLast ? (
               <Button onClick={() => void finish()}>{t("common.finish")}</Button>
             ) : (
-              <Button onClick={() => goTo(state.step + 1)}>{t("common.next")}</Button>
+              <Button
+                variant={stepHasInput ? "primary" : "soft"}
+                onClick={() => goTo(state.step + 1)}
+              >
+                {t(stepHasInput ? "common.next" : "common.skip")}
+              </Button>
             )}
           </div>
         </div>

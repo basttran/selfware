@@ -18,15 +18,30 @@ export const STEPS = [
 
 export type StepKey = (typeof STEPS)[number];
 
-/** Steps the user is allowed to skip (optional columns). */
-export const SKIPPABLE: ReadonlySet<StepKey> = new Set<StepKey>([
-  "supportingFacts",
-  "contradictingFacts",
-  "distortions",
-  "alternativeThoughts",
-]);
-
 export type WizardState = RecordDraft & { step: number };
+
+/** True when the user entered something at the given step — drives the Passer/Suivant CTA. */
+export function hasStepInput(state: WizardState, stepKey: StepKey): boolean {
+  switch (stepKey) {
+    case "event":
+      return (
+        state.event.trim().length > 0 ||
+        (state.eventDate ?? "").length > 0 ||
+        (state.eventTime ?? "").length > 0
+      );
+    case "emotions":
+      return state.emotions.length > 0;
+    case "automaticThoughts":
+    case "supportingFacts":
+    case "contradictingFacts":
+    case "alternativeThoughts":
+      return state[stepKey].trim().length > 0;
+    case "distortions":
+      return state.distortions.length > 0;
+    case "result":
+      return state.emotions.some((e) => e.resultIntensity != null);
+  }
+}
 
 export type WizardAction =
   | { type: "load"; draft: RecordDraft; step: number }
