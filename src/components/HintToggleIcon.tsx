@@ -1,13 +1,7 @@
 export function HintToggleIcon({ open }: { open: boolean }) {
   return open ? (
     <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
-      <path
-        d="M3.5 8.5L6.5 11.5L12.5 4.5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M4.5 8H11.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   ) : (
     <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
