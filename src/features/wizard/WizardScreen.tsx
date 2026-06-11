@@ -166,8 +166,9 @@ export function WizardScreen({ mode }: Props) {
               {t("common.previous")}
             </Button>
           </div>
-          <span className="text-center text-text-muted text-xs">
-            {t("wizard.progress", { current: state.step + 1, total: STEP_COUNT })}
+          <span className="flex flex-col items-center text-center text-text-muted text-xs leading-tight">
+            <span>{t("wizard.progressLabel")}</span>
+            <span>{t("wizard.progressCount", { current: state.step + 1, total: STEP_COUNT })}</span>
           </span>
           <div className="flex flex-1 items-center justify-end gap-2">
             {canSkip && !isLast && (

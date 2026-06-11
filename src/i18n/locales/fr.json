@@ -32,7 +32,8 @@
     "emotionsCount_other": "{{count}} émotions"
   },
   "wizard": {
-    "progress": "Étape {{current}} / {{total}}",
+    "progressLabel": "Étape",
+    "progressCount": "{{current}}/{{total}}",
     "newTitle": "Nouvelle grille",
     "editTitle": "Modifier la grille",
     "leaveSavesDraft": "Quitter enregistre un brouillon",
