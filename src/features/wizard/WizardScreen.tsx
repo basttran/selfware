@@ -96,18 +96,6 @@ export function WizardScreen({ mode }: Props) {
         onBack={() => void leave()}
       />
 
-      <div className="px-4 pt-3">
-        <div className="mb-1 flex items-center justify-between text-text-muted text-xs">
-          <span>{t("wizard.progress", { current: state.step + 1, total: STEP_COUNT })}</span>
-        </div>
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-border">
-          <div
-            className="h-full rounded-full bg-primary transition-all"
-            style={{ width: `${((state.step + 1) / STEP_COUNT) * 100}%` }}
-          />
-        </div>
-      </div>
-
       {showEventRecap && (
         <details className="group mx-4 mt-3 rounded-card border border-border bg-surface-raised">
           <summary className="flex cursor-pointer select-none items-center justify-between p-3 text-text-muted text-xs uppercase tracking-wide [&::-webkit-details-marker]:hidden">
@@ -135,21 +123,31 @@ export function WizardScreen({ mode }: Props) {
         <WizardStep stepKey={stepKey} state={state} dispatch={dispatch} />
       </main>
 
-      <footer className="sticky bottom-0 flex items-center gap-2 border-border border-t bg-surface/90 p-3 backdrop-blur">
-        <Button variant="ghost" disabled={state.step === 0} onClick={() => goTo(state.step - 1)}>
-          {t("common.previous")}
-        </Button>
-        <div className="flex-1" />
-        {canSkip && !isLast && (
-          <Button variant="soft" onClick={() => goTo(state.step + 1)}>
-            {t("common.skip")}
+      <footer className="sticky bottom-0 border-border border-t bg-surface/90 p-3 backdrop-blur">
+        <div className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-border">
+          <div
+            className="h-full rounded-full bg-primary transition-all"
+            style={{ width: `${((state.step + 1) / STEP_COUNT) * 100}%` }}
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" disabled={state.step === 0} onClick={() => goTo(state.step - 1)}>
+            {t("common.previous")}
           </Button>
-        )}
-        {isLast ? (
-          <Button onClick={() => void finish()}>{t("common.finish")}</Button>
-        ) : (
-          <Button onClick={() => goTo(state.step + 1)}>{t("common.next")}</Button>
-        )}
+          <span className="flex-1 text-center text-text-muted text-xs">
+            {t("wizard.progress", { current: state.step + 1, total: STEP_COUNT })}
+          </span>
+          {canSkip && !isLast && (
+            <Button variant="soft" onClick={() => goTo(state.step + 1)}>
+              {t("common.skip")}
+            </Button>
+          )}
+          {isLast ? (
+            <Button onClick={() => void finish()}>{t("common.finish")}</Button>
+          ) : (
+            <Button onClick={() => goTo(state.step + 1)}>{t("common.next")}</Button>
+          )}
+        </div>
       </footer>
     </div>
   );
