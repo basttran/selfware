@@ -110,10 +110,21 @@ export function WizardScreen({ mode }: Props) {
 
       {showEventRecap && (
         <details className="group mx-4 mt-3 rounded-card border border-border bg-surface-raised">
-          <summary className="flex cursor-pointer select-none items-center justify-between p-3 text-text-muted text-xs uppercase tracking-wide">
+          <summary className="flex cursor-pointer select-none items-center justify-between p-3 text-text-muted text-xs uppercase tracking-wide [&::-webkit-details-marker]:hidden">
             {t("wizard.step.event.title")}
-            <span aria-hidden className="transition-transform group-open:rotate-180">
-              ▾
+            <span
+              aria-hidden
+              className="flex h-6 w-6 items-center justify-center rounded-full bg-border text-text transition-transform group-open:rotate-180"
+            >
+              <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
+                <path
+                  d="M4 6l4 4 4-4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </span>
           </summary>
           <p className="whitespace-pre-wrap px-3 pb-3 text-sm leading-relaxed">{state.event}</p>
