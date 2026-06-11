@@ -21,6 +21,32 @@ interface Props {
   mode: "new" | "edit";
 }
 
+/** Collapsible recap of an earlier step's answer, closed by default. */
+function StepRecap({ title, text }: { title: string; text: string }) {
+  return (
+    <details className="group mx-4 mt-3 rounded-card border border-border bg-surface-raised">
+      <summary className="flex cursor-pointer select-none items-center justify-between p-3 text-text-muted text-xs uppercase tracking-wide [&::-webkit-details-marker]:hidden">
+        {title}
+        <span
+          aria-hidden
+          className="flex h-6 w-6 items-center justify-center rounded-full bg-border text-text transition-transform group-open:-rotate-90"
+        >
+          <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
+            <path
+              d="M10 4L6 8l4 4"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
+      </summary>
+      <p className="whitespace-pre-wrap px-3 pb-3 text-sm leading-relaxed">{text}</p>
+    </details>
+  );
+}
+
 export function WizardScreen({ mode }: Props) {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -71,6 +97,9 @@ export function WizardScreen({ mode }: Props) {
   const canSkip = SKIPPABLE.has(stepKey);
   const showEventRecap =
     (stepKey === "emotions" || stepKey === "automaticThoughts") && state.event.trim().length > 0;
+  const showThoughtsRecap =
+    (stepKey === "supportingFacts" || stepKey === "contradictingFacts") &&
+    state.automaticThoughts.trim().length > 0;
 
   function goTo(step: number) {
     dispatch({ type: "setStep", step });
@@ -96,27 +125,12 @@ export function WizardScreen({ mode }: Props) {
         onBack={() => void leave()}
       />
 
-      {showEventRecap && (
-        <details className="group mx-4 mt-3 rounded-card border border-border bg-surface-raised">
-          <summary className="flex cursor-pointer select-none items-center justify-between p-3 text-text-muted text-xs uppercase tracking-wide [&::-webkit-details-marker]:hidden">
-            {t("wizard.step.event.title")}
-            <span
-              aria-hidden
-              className="flex h-6 w-6 items-center justify-center rounded-full bg-border text-text transition-transform group-open:-rotate-90"
-            >
-              <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
-                <path
-                  d="M10 4L6 8l4 4"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-          </summary>
-          <p className="whitespace-pre-wrap px-3 pb-3 text-sm leading-relaxed">{state.event}</p>
-        </details>
+      {showEventRecap && <StepRecap title={t("wizard.step.event.title")} text={state.event} />}
+      {showThoughtsRecap && (
+        <StepRecap
+          title={t("wizard.step.automaticThoughts.title")}
+          text={state.automaticThoughts}
+        />
       )}
 
       <main className="flex-1 p-4">
