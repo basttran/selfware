@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { HintToggleIcon } from "@/components/HintToggleIcon.tsx";
 import { DISTORTION_IDS } from "@/data/distortions.ts";
 
 interface Props {
@@ -37,10 +38,11 @@ export function DistortionPicker({ selected, onToggle }: Props) {
               <button
                 type="button"
                 aria-label="Définition"
+                aria-expanded={isOpen}
                 onClick={() => setExpanded(isOpen ? null : id)}
-                className="size-6 shrink-0 rounded-full bg-accent-soft text-text-muted text-xs"
+                className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-soft text-text-muted"
               >
-                {isOpen ? "−" : "?"}
+                <HintToggleIcon open={isOpen} />
               </button>
             </div>
             {isOpen && (
