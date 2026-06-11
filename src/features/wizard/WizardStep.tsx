@@ -30,9 +30,7 @@ export function WizardStep({ stepKey, state, dispatch }: Props) {
             aria-expanded={hintOpen}
             aria-label={t(hintOpen ? "wizard.hint.hide" : "wizard.hint.show")}
             onClick={() => setHintOpen((open) => !open)}
-            className={`flex h-6 w-6 items-center justify-center rounded-full transition-colors ${
-              hintOpen ? "bg-primary text-primary-contrast" : "bg-border text-text"
-            }`}
+            className="flex h-6 w-6 items-center justify-center rounded-full bg-border text-text"
           >
             {hintOpen ? (
               <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
