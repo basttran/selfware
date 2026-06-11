@@ -72,12 +72,16 @@
         "hint": "Recherchez des faits concrets qui contredisent cette pensée automatique.",
         "placeholder": "Quels faits contredisent cette pensée ?"
       },
+      "distortions": {
+        "title": "Distorsions repérées",
+        "subtitle": "Je tombe dans le piège de…",
+        "hint": "Relisez votre pensée automatique et les faits : quelles distorsions cognitives reconnaissez-vous ? Touchez « ? » pour voir la définition et un exemple."
+      },
       "alternativeThoughts": {
         "title": "Pensées alternatives",
         "subtitle": "Une pensée plus réaliste serait…",
-        "hint": "Identifiez la ou les distorsions, puis formulez une réaction plus réaliste.",
-        "placeholder": "Une pensée plus réaliste dans ce contexte…",
-        "distortionsLabel": "Distorsions repérées"
+        "hint": "À la lumière des faits et des distorsions repérées, formulez une réaction plus réaliste.",
+        "placeholder": "Une pensée plus réaliste dans ce contexte…"
       },
       "result": {
         "title": "Résultat",

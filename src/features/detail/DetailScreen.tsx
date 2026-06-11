@@ -128,8 +128,7 @@ function EmotionList({ record, kind }: { record: ThoughtRecord; kind: "initial" 
     <ul className="space-y-1.5">
       {record.emotions.map((emotion) => {
         const meta = getEmotionMeta(emotion.primary);
-        const value =
-          kind === "initial" ? emotion.initialIntensity : emotion.resultIntensity;
+        const value = kind === "initial" ? emotion.initialIntensity : emotion.resultIntensity;
         return (
           <li key={emotion.primary} className="flex items-center justify-between text-sm">
             <span className="flex items-center gap-2">

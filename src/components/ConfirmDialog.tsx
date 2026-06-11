@@ -10,14 +10,7 @@ interface Props {
   onCancel: () => void;
 }
 
-export function ConfirmDialog({
-  open,
-  message,
-  confirmLabel,
-  danger,
-  onConfirm,
-  onCancel,
-}: Props) {
+export function ConfirmDialog({ open, message, confirmLabel, danger, onConfirm, onCancel }: Props) {
   const { t } = useTranslation();
   if (!open) return null;
 

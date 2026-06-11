@@ -1,12 +1,7 @@
 import { Document, Page, pdf, StyleSheet, Text, View } from "@react-pdf/renderer";
 import i18n from "i18next";
 import type { ThoughtRecord } from "@/db/types.ts";
-import {
-  distortionsText,
-  emotionsText,
-  orDash,
-  recordWhen,
-} from "@/features/export/recordText.ts";
+import { distortionsText, emotionsText, orDash, recordWhen } from "@/features/export/recordText.ts";
 
 export type ExportLayout = "card" | "table";
 
@@ -115,10 +110,7 @@ function TableDoc({ records }: { records: ThoughtRecord[] }) {
   );
 }
 
-export async function buildPdfBlob(
-  layout: ExportLayout,
-  records: ThoughtRecord[],
-): Promise<Blob> {
+export async function buildPdfBlob(layout: ExportLayout, records: ThoughtRecord[]): Promise<Blob> {
   const doc = layout === "card" ? <CardDoc records={records} /> : <TableDoc records={records} />;
   return pdf(doc).toBlob();
 }

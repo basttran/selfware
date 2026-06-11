@@ -128,26 +128,23 @@ function StepFields({ stepKey, state, dispatch }: Props) {
         />
       );
 
+    case "distortions":
+      return (
+        <DistortionPicker
+          selected={state.distortions}
+          onToggle={(id) => dispatch({ type: "toggleDistortion", id })}
+        />
+      );
+
     case "alternativeThoughts":
       return (
-        <div className="space-y-4">
-          <TextArea
-            value={state.alternativeThoughts}
-            placeholder={t("wizard.step.alternativeThoughts.placeholder")}
-            onChange={(e) =>
-              dispatch({ type: "setField", field: "alternativeThoughts", value: e.target.value })
-            }
-          />
-          <div>
-            <p className="mb-2 font-medium text-sm">
-              {t("wizard.step.alternativeThoughts.distortionsLabel")}
-            </p>
-            <DistortionPicker
-              selected={state.distortions}
-              onToggle={(id) => dispatch({ type: "toggleDistortion", id })}
-            />
-          </div>
-        </div>
+        <TextArea
+          value={state.alternativeThoughts}
+          placeholder={t("wizard.step.alternativeThoughts.placeholder")}
+          onChange={(e) =>
+            dispatch({ type: "setField", field: "alternativeThoughts", value: e.target.value })
+          }
+        />
       );
 
     case "result":

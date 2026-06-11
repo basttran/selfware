@@ -2,11 +2,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SettingsProvider } from "@/app/SettingsProvider.tsx";
 import { ErrorBoundary } from "@/components/ErrorBoundary.tsx";
 import "@/i18n/i18n.ts";
-import { PinGate } from "@/pin/PinGate.tsx";
 import { DetailScreen } from "@/features/detail/DetailScreen.tsx";
 import { HistoryScreen } from "@/features/history/HistoryScreen.tsx";
 import { SettingsScreen } from "@/features/settings/SettingsScreen.tsx";
 import { WizardScreen } from "@/features/wizard/WizardScreen.tsx";
+import { PinGate } from "@/pin/PinGate.tsx";
 
 export function App() {
   return (

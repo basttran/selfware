@@ -98,8 +98,11 @@ export function WizardScreen({ mode }: Props) {
   const showEventRecap =
     (stepKey === "emotions" || stepKey === "automaticThoughts") && state.event.trim().length > 0;
   const showThoughtsRecap =
-    (stepKey === "supportingFacts" || stepKey === "contradictingFacts") &&
+    (stepKey === "supportingFacts" ||
+      stepKey === "contradictingFacts" ||
+      stepKey === "distortions") &&
     state.automaticThoughts.trim().length > 0;
+  const showFactsRecaps = stepKey === "distortions";
 
   function goTo(step: number) {
     dispatch({ type: "setStep", step });
@@ -130,6 +133,15 @@ export function WizardScreen({ mode }: Props) {
         <StepRecap
           title={t("wizard.step.automaticThoughts.title")}
           text={state.automaticThoughts}
+        />
+      )}
+      {showFactsRecaps && state.supportingFacts.trim().length > 0 && (
+        <StepRecap title={t("wizard.step.supportingFacts.title")} text={state.supportingFacts} />
+      )}
+      {showFactsRecaps && state.contradictingFacts.trim().length > 0 && (
+        <StepRecap
+          title={t("wizard.step.contradictingFacts.title")}
+          text={state.contradictingFacts}
         />
       )}
 

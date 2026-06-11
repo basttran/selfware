@@ -2,7 +2,7 @@ import type { RecordDraft } from "@/db/records.ts";
 import { emptyDraft } from "@/db/records.ts";
 import type { Emotion, PrimaryEmotion, ThoughtRecord } from "@/db/types.ts";
 
-export const STEP_COUNT = 7;
+export const STEP_COUNT = 8;
 
 /** i18n key suffix + which draft field a step edits, in order. */
 export const STEPS = [
@@ -11,6 +11,7 @@ export const STEPS = [
   "automaticThoughts",
   "supportingFacts",
   "contradictingFacts",
+  "distortions",
   "alternativeThoughts",
   "result",
 ] as const;
@@ -21,6 +22,7 @@ export type StepKey = (typeof STEPS)[number];
 export const SKIPPABLE: ReadonlySet<StepKey> = new Set<StepKey>([
   "supportingFacts",
   "contradictingFacts",
+  "distortions",
   "alternativeThoughts",
 ]);
 

@@ -34,8 +34,7 @@ export function ExportDialog({ record, scope: initialScope, onClose }: Props) {
     setBusy(true);
     setError(null);
     try {
-      const records =
-        scope === "single" && record ? [record] : await recordsInRange(from, to);
+      const records = scope === "single" && record ? [record] : await recordsInRange(from, to);
       if (records.length === 0) {
         setError(t("export.noneInRange"));
         return;
