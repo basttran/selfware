@@ -30,9 +30,8 @@ export type WizardAction =
   | { type: "load"; draft: RecordDraft; step: number }
   | { type: "setField"; field: keyof RecordDraft; value: string }
   | { type: "setStep"; step: number }
-  | { type: "addEmotion"; primary: PrimaryEmotion }
+  | { type: "setEmotionIntensity"; primary: PrimaryEmotion; intensity: number }
   | { type: "updateEmotion"; index: number; patch: Partial<Emotion> }
-  | { type: "removeEmotion"; index: number }
   | { type: "toggleDistortion"; id: string };
 
 export function initialState(): WizardState {
@@ -57,11 +56,23 @@ export function wizardReducer(state: WizardState, action: WizardAction): WizardS
       return { ...state, [action.field]: action.value };
     case "setStep":
       return { ...state, step: action.step };
-    case "addEmotion":
+    case "setEmotionIntensity": {
+      if (action.intensity <= 0) {
+        return {
+          ...state,
+          emotions: state.emotions.filter((e) => e.primary !== action.primary),
+        };
+      }
+      const exists = state.emotions.some((e) => e.primary === action.primary);
       return {
         ...state,
-        emotions: [...state.emotions, { primary: action.primary, initialIntensity: 5 }],
+        emotions: exists
+          ? state.emotions.map((e) =>
+              e.primary === action.primary ? { ...e, initialIntensity: action.intensity } : e,
+            )
+          : [...state.emotions, { primary: action.primary, initialIntensity: action.intensity }],
       };
+    }
     case "updateEmotion":
       return {
         ...state,
@@ -69,8 +80,6 @@ export function wizardReducer(state: WizardState, action: WizardAction): WizardS
           i === action.index ? { ...e, ...action.patch } : e,
         ),
       };
-    case "removeEmotion":
-      return { ...state, emotions: state.emotions.filter((_, i) => i !== action.index) };
     case "toggleDistortion": {
       const has = state.distortions.includes(action.id);
       return {

@@ -76,9 +76,9 @@ function StepFields({ stepKey, state, dispatch }: Props) {
       return (
         <EmotionInput
           emotions={state.emotions}
-          onAdd={(primary) => dispatch({ type: "addEmotion", primary })}
-          onUpdate={(index, patch) => dispatch({ type: "updateEmotion", index, patch })}
-          onRemove={(index) => dispatch({ type: "removeEmotion", index })}
+          onSetIntensity={(primary, intensity) =>
+            dispatch({ type: "setEmotionIntensity", primary, intensity })
+          }
         />
       );
 

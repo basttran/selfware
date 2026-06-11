@@ -4,19 +4,29 @@ interface Props {
   /** Track/thumb accent color (e.g. the emotion color). */
   color?: string;
   label?: string;
+  /** Lower bound; with min=0, the value 0 renders as "–" (not felt). */
+  min?: 0 | 1;
 }
 
 /** A 1–10 slider with a visible current value. */
-export function IntensitySlider({ value, onChange, color = "var(--color-primary)", label }: Props) {
+export function IntensitySlider({
+  value,
+  onChange,
+  color = "var(--color-primary)",
+  label,
+  min = 1,
+}: Props) {
   return (
     <div>
       <div className="mb-1 flex items-center justify-between text-text-muted text-xs">
         <span>{label}</span>
-        <span className="font-semibold text-sm text-text tabular-nums">{value}/10</span>
+        <span className="font-semibold text-sm text-text tabular-nums">
+          {value === 0 ? "–" : `${value}/10`}
+        </span>
       </div>
       <input
         type="range"
-        min={1}
+        min={min}
         max={10}
         step={1}
         value={value}

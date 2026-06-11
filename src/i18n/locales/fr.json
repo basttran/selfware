@@ -48,9 +48,7 @@
       "emotions": {
         "title": "Émotions",
         "subtitle": "Je me sens…",
-        "hint": "Choisissez une ou plusieurs émotions et évaluez leur intensité de 1 à 10.",
-        "add": "Ajouter une émotion",
-        "empty": "Aucune émotion ajoutée."
+        "hint": "Évaluez l'intensité de chaque émotion ressentie de 1 à 10 (laissez à – si elle est absente)."
       },
       "automaticThoughts": {
         "title": "Pensées automatiques",
@@ -93,9 +91,7 @@
     "fear": "Peur",
     "disgust": "Dégoût",
     "joy": "Joie",
-    "surprise": "Surprise",
-    "intensity": "Intensité",
-    "remove": "Retirer"
+    "surprise": "Surprise"
   },
   "distortion": {
     "all-or-nothing": {

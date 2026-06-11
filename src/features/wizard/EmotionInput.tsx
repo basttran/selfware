@@ -1,67 +1,42 @@
 import { useTranslation } from "react-i18next";
 import { IntensitySlider } from "@/components/IntensitySlider.tsx";
-import { EMOTIONS, getEmotionMeta } from "@/data/emotions.ts";
+import { EMOTIONS } from "@/data/emotions.ts";
 import type { Emotion, PrimaryEmotion } from "@/db/types.ts";
 
 interface Props {
   emotions: Emotion[];
-  onAdd: (primary: PrimaryEmotion) => void;
-  onUpdate: (index: number, patch: Partial<Emotion>) => void;
-  onRemove: (index: number) => void;
+  onSetIntensity: (primary: PrimaryEmotion, intensity: number) => void;
 }
 
-export function EmotionInput({ emotions, onAdd, onUpdate, onRemove }: Props) {
+/** Pills stacked in a column on the left, each labelling its slider; 0 means "not felt". */
+export function EmotionInput({ emotions, onSetIntensity }: Props) {
   const { t } = useTranslation();
-  const used = new Set(emotions.map((e) => e.primary));
+  const intensityByPrimary = new Map(emotions.map((e) => [e.primary, e.initialIntensity]));
 
   return (
-    <div className="space-y-5">
-      <div className="flex flex-wrap gap-2">
-        {EMOTIONS.map((meta) => (
-          <button
-            key={meta.id}
-            type="button"
-            disabled={used.has(meta.id)}
-            onClick={() => onAdd(meta.id)}
-            className="rounded-full border border-border px-3 py-1.5 text-sm transition-opacity disabled:opacity-30"
-            style={{ borderColor: used.has(meta.id) ? undefined : `var(${meta.cssVar})` }}
-          >
-            <span className="mr-1">{meta.emoji}</span>
-            {t(`emotion.${meta.id}`)}
-          </button>
-        ))}
-      </div>
-
-      <ul className="space-y-4">
-        {emotions.map((emotion, index) => {
-          const meta = getEmotionMeta(emotion.primary);
-          return (
-            <li
-              key={emotion.primary}
-              className="rounded-card border border-border bg-surface-raised p-3"
+    <ul className="grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-4">
+      {EMOTIONS.map((meta) => {
+        const intensity = intensityByPrimary.get(meta.id) ?? 0;
+        return (
+          <li key={meta.id} className="col-span-2 grid grid-cols-subgrid items-center">
+            <span
+              className={`justify-self-start rounded-full border px-3 py-1.5 text-sm ${
+                intensity > 0 ? "" : "border-border opacity-50"
+              }`}
+              style={intensity > 0 ? { borderColor: `var(${meta.cssVar})` } : undefined}
             >
-              <div className="mb-2 flex items-center justify-between">
-                <span className="font-medium text-sm">
-                  {meta.emoji} {t(`emotion.${emotion.primary}`)}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => onRemove(index)}
-                  className="text-text-muted text-xs hover:text-danger"
-                >
-                  {t("emotion.remove")}
-                </button>
-              </div>
-              <IntensitySlider
-                value={emotion.initialIntensity}
-                onChange={(v) => onUpdate(index, { initialIntensity: v })}
-                color={`var(${meta.cssVar})`}
-                label={t("emotion.intensity")}
-              />
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+              <span className="mr-1">{meta.emoji}</span>
+              {t(`emotion.${meta.id}`)}
+            </span>
+            <IntensitySlider
+              min={0}
+              value={intensity}
+              onChange={(v) => onSetIntensity(meta.id, v)}
+              color={`var(${meta.cssVar})`}
+            />
+          </li>
+        );
+      })}
+    </ul>
   );
 }
