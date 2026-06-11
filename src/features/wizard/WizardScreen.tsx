@@ -69,6 +69,8 @@ export function WizardScreen({ mode }: Props) {
   const stepKey = STEPS[state.step] ?? STEPS[0];
   const isLast = state.step === STEP_COUNT - 1;
   const canSkip = SKIPPABLE.has(stepKey);
+  const showEventRecap =
+    (stepKey === "emotions" || stepKey === "automaticThoughts") && state.event.trim().length > 0;
 
   function goTo(step: number) {
     dispatch({ type: "setStep", step });
@@ -106,16 +108,21 @@ export function WizardScreen({ mode }: Props) {
         </div>
       </div>
 
+      {showEventRecap && (
+        <div className="mx-4 mt-3 rounded-card border border-border bg-surface-raised p-3">
+          <p className="text-text-muted text-xs uppercase tracking-wide">
+            {t("wizard.step.event.title")}
+          </p>
+          <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed">{state.event}</p>
+        </div>
+      )}
+
       <main className="flex-1 p-4">
         <WizardStep stepKey={stepKey} state={state} dispatch={dispatch} />
       </main>
 
       <footer className="sticky bottom-0 flex items-center gap-2 border-border border-t bg-surface/90 p-3 backdrop-blur">
-        <Button
-          variant="ghost"
-          disabled={state.step === 0}
-          onClick={() => goTo(state.step - 1)}
-        >
+        <Button variant="ghost" disabled={state.step === 0} onClick={() => goTo(state.step - 1)}>
           {t("common.previous")}
         </Button>
         <div className="flex-1" />
