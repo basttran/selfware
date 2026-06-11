@@ -134,7 +134,7 @@ export function WizardScreen({ mode }: Props) {
       )}
 
       <main className="flex-1 p-4">
-        <WizardStep stepKey={stepKey} state={state} dispatch={dispatch} />
+        <WizardStep key={stepKey} stepKey={stepKey} state={state} dispatch={dispatch} />
       </main>
 
       <footer className="sticky bottom-0 border-border border-t bg-surface/90 p-3 backdrop-blur">

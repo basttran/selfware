@@ -1,4 +1,4 @@
-import type { Dispatch } from "react";
+import { type Dispatch, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IntensitySlider } from "@/components/IntensitySlider.tsx";
 import { TextArea } from "@/components/TextArea.tsx";
@@ -15,6 +15,7 @@ interface Props {
 
 export function WizardStep({ stepKey, state, dispatch }: Props) {
   const { t } = useTranslation();
+  const [hintOpen, setHintOpen] = useState(false);
 
   return (
     <section className="space-y-4">
@@ -22,10 +23,46 @@ export function WizardStep({ stepKey, state, dispatch }: Props) {
         <p className="text-primary text-xs uppercase tracking-wide">
           {t(`wizard.step.${stepKey}.subtitle`)}
         </p>
-        <h2 className="font-semibold text-lg">{t(`wizard.step.${stepKey}.title`)}</h2>
-        <p className="mt-1 text-sm text-text-muted leading-relaxed">
-          {t(`wizard.step.${stepKey}.hint`)}
-        </p>
+        <div className="flex items-center gap-2">
+          <h2 className="font-semibold text-lg">{t(`wizard.step.${stepKey}.title`)}</h2>
+          <button
+            type="button"
+            aria-expanded={hintOpen}
+            aria-label={t(hintOpen ? "wizard.hint.hide" : "wizard.hint.show")}
+            onClick={() => setHintOpen((open) => !open)}
+            className={`flex h-6 w-6 items-center justify-center rounded-full transition-colors ${
+              hintOpen ? "bg-primary text-primary-contrast" : "bg-border text-text"
+            }`}
+          >
+            {hintOpen ? (
+              <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
+                <path
+                  d="M3.5 8.5L6.5 11.5L12.5 4.5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            ) : (
+              <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
+                <path
+                  d="M5.75 6a2.25 2.25 0 1 1 3.1 2.08c-.63.26-1.1.77-1.1 1.45v.22"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <circle cx="7.85" cy="12.6" r="1" fill="currentColor" />
+              </svg>
+            )}
+          </button>
+        </div>
+        {hintOpen && (
+          <p className="mt-1 text-sm text-text-muted leading-relaxed">
+            {t(`wizard.step.${stepKey}.hint`)}
+          </p>
+        )}
       </header>
 
       <StepFields stepKey={stepKey} state={state} dispatch={dispatch} />
@@ -138,7 +175,9 @@ function StepFields({ stepKey, state, dispatch }: Props) {
                 </div>
                 <IntensitySlider
                   value={emotion.resultIntensity ?? emotion.initialIntensity}
-                  onChange={(v) => dispatch({ type: "updateEmotion", index, patch: { resultIntensity: v } })}
+                  onChange={(v) =>
+                    dispatch({ type: "updateEmotion", index, patch: { resultIntensity: v } })
+                  }
                   color={`var(${meta.cssVar})`}
                   label={t("wizard.step.result.now")}
                 />
