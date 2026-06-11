@@ -2,6 +2,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { AppBar } from "@/components/AppBar.tsx";
+import { GitHubLink } from "@/components/GitHubLink.tsx";
 import { db } from "@/db/db.ts";
 import type { ThoughtRecord } from "@/db/types.ts";
 import { EmotionChips } from "@/features/history/EmotionChips.tsx";
@@ -17,13 +18,16 @@ export function HistoryScreen() {
       <AppBar
         title={t("history.title")}
         right={
-          <Link
-            to="/settings"
-            aria-label={t("nav.settings")}
-            className="rounded-control px-2 py-1 text-text-muted text-xl hover:text-text"
-          >
-            ⚙
-          </Link>
+          <div className="flex items-center gap-1">
+            <GitHubLink />
+            <Link
+              to="/settings"
+              aria-label={t("nav.settings")}
+              className="rounded-control px-2 py-1 text-text-muted text-xl hover:text-text"
+            >
+              ⚙
+            </Link>
+          </div>
         }
       />
 

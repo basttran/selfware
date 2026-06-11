@@ -21,7 +21,8 @@
   "nav": {
     "history": "Historique",
     "settings": "Réglages",
-    "newRecord": "Nouvelle grille"
+    "newRecord": "Nouvelle grille",
+    "github": "Code source sur GitHub"
   },
   "history": {
     "title": "Mes grilles",
