@@ -114,11 +114,11 @@ export function WizardScreen({ mode }: Props) {
             {t("wizard.step.event.title")}
             <span
               aria-hidden
-              className="flex h-6 w-6 items-center justify-center rounded-full bg-border text-text transition-transform group-open:rotate-180"
+              className="flex h-6 w-6 items-center justify-center rounded-full bg-border text-text transition-transform group-open:-rotate-90"
             >
               <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
                 <path
-                  d="M4 6l4 4 4-4"
+                  d="M10 4L6 8l4 4"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
