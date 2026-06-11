@@ -13,7 +13,7 @@ export function DistortionPicker({ selected, onToggle }: Props) {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
-    <ul className="grid grid-cols-2 gap-2">
+    <ul className="space-y-2">
       {DISTORTION_IDS.map((id) => {
         const isSelected = selected.includes(id);
         const isOpen = expanded === id;
@@ -24,7 +24,7 @@ export function DistortionPicker({ selected, onToggle }: Props) {
               isSelected ? "border-primary" : "border-border"
             }`}
           >
-            <div className="flex items-center gap-2 p-2">
+            <div className="flex items-center gap-2 p-3">
               <input
                 type="checkbox"
                 checked={isSelected}
@@ -32,10 +32,7 @@ export function DistortionPicker({ selected, onToggle }: Props) {
                 className="size-4 accent-primary"
                 id={`distortion-${id}`}
               />
-              <label
-                htmlFor={`distortion-${id}`}
-                className="flex min-h-[2lh] flex-1 items-center text-sm leading-snug"
-              >
+              <label htmlFor={`distortion-${id}`} className="flex-1 text-sm">
                 {t(`distortion.${id}.name`)}
               </label>
               <button
