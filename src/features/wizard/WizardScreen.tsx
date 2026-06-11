@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppBar } from "@/components/AppBar.tsx";
 import { Button } from "@/components/Button.tsx";
+import { DISTORTION_IDS } from "@/data/distortions.ts";
 import { createRecord, getRecord, saveRecord } from "@/db/records.ts";
 import { WizardStep } from "@/features/wizard/WizardStep.tsx";
 import {
@@ -100,9 +101,12 @@ export function WizardScreen({ mode }: Props) {
   const showThoughtsRecap =
     (stepKey === "supportingFacts" ||
       stepKey === "contradictingFacts" ||
-      stepKey === "distortions") &&
+      stepKey === "distortions" ||
+      stepKey === "alternativeThoughts") &&
     state.automaticThoughts.trim().length > 0;
-  const showFactsRecaps = stepKey === "distortions";
+  const showFactsRecaps = stepKey === "distortions" || stepKey === "alternativeThoughts";
+  const selectedDistortions = DISTORTION_IDS.filter((id) => state.distortions.includes(id));
+  const showDistortionsRecap = stepKey === "alternativeThoughts" && selectedDistortions.length > 0;
 
   function goTo(step: number) {
     dispatch({ type: "setStep", step });
@@ -142,6 +146,12 @@ export function WizardScreen({ mode }: Props) {
         <StepRecap
           title={t("wizard.step.contradictingFacts.title")}
           text={state.contradictingFacts}
+        />
+      )}
+      {showDistortionsRecap && (
+        <StepRecap
+          title={t("wizard.step.distortions.title")}
+          text={selectedDistortions.map((id) => t(`distortion.${id}.name`)).join("\n")}
         />
       )}
 
