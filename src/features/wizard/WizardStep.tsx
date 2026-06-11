@@ -21,9 +21,6 @@ export function WizardStep({ stepKey, state, dispatch }: Props) {
   return (
     <section className="space-y-4">
       <header>
-        <p className="text-primary text-xs uppercase tracking-wide">
-          {t(`wizard.step.${stepKey}.subtitle`)}
-        </p>
         <div className="flex items-center gap-2">
           <h2 className="font-semibold text-lg">{t(`wizard.step.${stepKey}.title`)}</h2>
           <button
@@ -43,7 +40,12 @@ export function WizardStep({ stepKey, state, dispatch }: Props) {
         )}
       </header>
 
-      <StepFields stepKey={stepKey} state={state} dispatch={dispatch} />
+      <div className="space-y-2">
+        <p className="text-primary text-xs uppercase tracking-wide">
+          {t(`wizard.step.${stepKey}.subtitle`)}
+        </p>
+        <StepFields stepKey={stepKey} state={state} dispatch={dispatch} />
+      </div>
     </section>
   );
 }
