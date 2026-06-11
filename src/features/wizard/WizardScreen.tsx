@@ -109,12 +109,15 @@ export function WizardScreen({ mode }: Props) {
       </div>
 
       {showEventRecap && (
-        <div className="mx-4 mt-3 rounded-card border border-border bg-surface-raised p-3">
-          <p className="text-text-muted text-xs uppercase tracking-wide">
+        <details className="group mx-4 mt-3 rounded-card border border-border bg-surface-raised">
+          <summary className="flex cursor-pointer select-none items-center justify-between p-3 text-text-muted text-xs uppercase tracking-wide">
             {t("wizard.step.event.title")}
-          </p>
-          <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed">{state.event}</p>
-        </div>
+            <span aria-hidden className="transition-transform group-open:rotate-180">
+              ▾
+            </span>
+          </summary>
+          <p className="whitespace-pre-wrap px-3 pb-3 text-sm leading-relaxed">{state.event}</p>
+        </details>
       )}
 
       <main className="flex-1 p-4">
