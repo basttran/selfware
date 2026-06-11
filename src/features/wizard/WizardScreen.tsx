@@ -131,22 +131,30 @@ export function WizardScreen({ mode }: Props) {
           />
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="ghost" disabled={state.step === 0} onClick={() => goTo(state.step - 1)}>
-            {t("common.previous")}
-          </Button>
-          <span className="flex-1 text-center text-text-muted text-xs">
+          <div className="flex flex-1 justify-start">
+            <Button
+              variant="ghost"
+              disabled={state.step === 0}
+              onClick={() => goTo(state.step - 1)}
+            >
+              {t("common.previous")}
+            </Button>
+          </div>
+          <span className="text-center text-text-muted text-xs">
             {t("wizard.progress", { current: state.step + 1, total: STEP_COUNT })}
           </span>
-          {canSkip && !isLast && (
-            <Button variant="soft" onClick={() => goTo(state.step + 1)}>
-              {t("common.skip")}
-            </Button>
-          )}
-          {isLast ? (
-            <Button onClick={() => void finish()}>{t("common.finish")}</Button>
-          ) : (
-            <Button onClick={() => goTo(state.step + 1)}>{t("common.next")}</Button>
-          )}
+          <div className="flex flex-1 items-center justify-end gap-2">
+            {canSkip && !isLast && (
+              <Button variant="soft" onClick={() => goTo(state.step + 1)}>
+                {t("common.skip")}
+              </Button>
+            )}
+            {isLast ? (
+              <Button onClick={() => void finish()}>{t("common.finish")}</Button>
+            ) : (
+              <Button onClick={() => goTo(state.step + 1)}>{t("common.next")}</Button>
+            )}
+          </div>
         </div>
       </footer>
     </div>
