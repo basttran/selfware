@@ -24,11 +24,11 @@ export function DistortionPicker({ selected, onToggle }: Props) {
               isSelected ? "border-primary" : "border-border"
             }`}
           >
-            <div className="flex flex-col gap-1.5 px-2.5 py-2">
-              <label htmlFor={`distortion-${id}`} className="text-sm leading-tight">
+            <div className="flex flex-col gap-2 px-2.5 py-2">
+              <label htmlFor={`distortion-${id}`} className="text-sm leading-tight min-h-[2lh]">
                 {t(`distortion.${id}.name`)}
               </label>
-              <div className="flex items-center">
+              <div className="flex items-center justify-between">
                 <input
                   type="checkbox"
                   checked={isSelected}
@@ -36,7 +36,6 @@ export function DistortionPicker({ selected, onToggle }: Props) {
                   className="size-4 shrink-0 accent-primary"
                   id={`distortion-${id}`}
                 />
-                <div className="flex-1" />
                 <button
                   type="button"
                   aria-label="Définition"
