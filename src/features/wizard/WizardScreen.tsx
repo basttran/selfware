@@ -155,42 +155,44 @@ export function WizardScreen({ mode }: Props) {
         />
       )}
 
-      <main className="flex-1 p-4">
+      <main className="flex-1 p-4 pb-28">
         <WizardStep key={stepKey} stepKey={stepKey} state={state} dispatch={dispatch} />
       </main>
 
-      <footer className="sticky bottom-0 border-border border-t bg-surface/90 p-3 backdrop-blur">
-        <div className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-border">
-          <div
-            className="h-full rounded-full bg-primary transition-all"
-            style={{ width: `${((state.step + 1) / STEP_COUNT) * 100}%` }}
-          />
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="flex flex-1 justify-start">
-            <Button
-              variant="ghost"
-              disabled={state.step === 0}
-              onClick={() => goTo(state.step - 1)}
-            >
-              {t("common.previous")}
-            </Button>
+      <footer className="fixed bottom-0 left-0 right-0 z-10 border-border border-t bg-surface/90 p-3 backdrop-blur">
+        <div className="mx-auto max-w-2xl">
+          <div className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-border">
+            <div
+              className="h-full rounded-full bg-primary transition-all"
+              style={{ width: `${((state.step + 1) / STEP_COUNT) * 100}%` }}
+            />
           </div>
-          <span className="flex flex-col items-center text-center text-text-muted text-xs leading-tight">
-            <span>{t("wizard.progressLabel")}</span>
-            <span>{t("wizard.progressCount", { current: state.step + 1, total: STEP_COUNT })}</span>
-          </span>
-          <div className="flex flex-1 justify-end">
-            {isLast ? (
-              <Button onClick={() => void finish()}>{t("common.finish")}</Button>
-            ) : (
+          <div className="flex items-center gap-2">
+            <div className="flex flex-1 justify-start">
               <Button
-                variant={stepHasInput ? "primary" : "soft"}
-                onClick={() => goTo(state.step + 1)}
+                variant="ghost"
+                disabled={state.step === 0}
+                onClick={() => goTo(state.step - 1)}
               >
-                {t(stepHasInput ? "common.next" : "common.skip")}
+                {t("common.previous")}
               </Button>
-            )}
+            </div>
+            <span className="flex flex-col items-center text-center text-text-muted text-xs leading-tight">
+              <span>{t("wizard.progressLabel")}</span>
+              <span>{t("wizard.progressCount", { current: state.step + 1, total: STEP_COUNT })}</span>
+            </span>
+            <div className="flex flex-1 justify-end">
+              {isLast ? (
+                <Button onClick={() => void finish()}>{t("common.finish")}</Button>
+              ) : (
+                <Button
+                  variant={stepHasInput ? "primary" : "soft"}
+                  onClick={() => goTo(state.step + 1)}
+                >
+                  {t(stepHasInput ? "common.next" : "common.skip")}
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </footer>
