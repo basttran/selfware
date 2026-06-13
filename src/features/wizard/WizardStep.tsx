@@ -28,7 +28,7 @@ export function WizardStep({ stepKey, state, dispatch }: Props) {
             aria-expanded={hintOpen}
             aria-label={t(hintOpen ? "wizard.hint.hide" : "wizard.hint.show")}
             onClick={() => setHintOpen((open) => !open)}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-border text-text"
+            className="flex h-4 w-4 items-center justify-center rounded-full bg-border text-text"
           >
             <HintToggleIcon open={hintOpen} />
           </button>
