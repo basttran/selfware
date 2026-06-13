@@ -51,6 +51,45 @@
   }
 }
 
+/* ─── Palette overrides ────────────────────────────────────────────────────
+ * data-palette is set on <html> by usePalette.ts. The default (teal) needs
+ * no override — it lives in @theme above. Only the 3 alternatives are listed.
+ * The attribute selector (specificity 0,2,0) beats :root (0,1,0) in all modes.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+:root[data-palette="amber"] {
+  --color-primary: oklch(0.580 0.092 68);
+  --color-accent-soft: oklch(0.952 0.018 68);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="amber"] {
+    --color-primary: oklch(0.720 0.095 68);
+    --color-accent-soft: oklch(0.165 0.020 60);
+  }
+}
+
+:root[data-palette="slate"] {
+  --color-primary: oklch(0.480 0.060 295);
+  --color-accent-soft: oklch(0.948 0.012 295);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="slate"] {
+    --color-primary: oklch(0.680 0.065 295);
+    --color-accent-soft: oklch(0.150 0.020 295);
+  }
+}
+
+:root[data-palette="rose"] {
+  --color-primary: oklch(0.550 0.065 15);
+  --color-accent-soft: oklch(0.950 0.015 15);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="rose"] {
+    --color-primary: oklch(0.700 0.070 15);
+    --color-accent-soft: oklch(0.158 0.018 15);
+  }
+}
+
 html,
 body,
 #root {

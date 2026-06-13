@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppBar } from "@/components/AppBar.tsx";
 import { Button } from "@/components/Button.tsx";
+import { PaletteSelector } from "@/components/PaletteSelector.tsx";
+import { usePalette } from "@/theme/usePalette.ts";
 import { DISTORTION_IDS } from "@/data/distortions.ts";
 import { createRecord, getRecord, saveRecord } from "@/db/records.ts";
 import { WizardStep } from "@/features/wizard/WizardStep.tsx";
@@ -54,6 +56,7 @@ export function WizardScreen({ mode }: Props) {
   const params = useParams();
   const editId = mode === "edit" && params.id ? Number(params.id) : null;
 
+  const { palette, setPalette } = usePalette();
   const [state, dispatch] = useReducer(wizardReducer, undefined, initialState);
   const [loaded, setLoaded] = useState(mode === "new");
   const recordIdRef = useRef<number | null>(editId);
@@ -130,6 +133,7 @@ export function WizardScreen({ mode }: Props) {
       <AppBar
         title={mode === "edit" ? t("wizard.editTitle") : t("wizard.newTitle")}
         onBack={() => void leave()}
+        right={mode === "new" ? <PaletteSelector value={palette} onChange={setPalette} /> : undefined}
       />
 
       {showEventRecap && <StepRecap title={t("wizard.step.event.title")} text={state.event} />}
