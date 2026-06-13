@@ -1,5 +1,5 @@
-import Dexie, { type EntityTable } from "dexie";
-import { DEFAULT_SETTINGS, type Settings, type ThoughtRecord } from "@/db/types.ts";
+import Dexie, { type EntityTable, type Table } from "dexie";
+import { DEFAULT_SETTINGS, type EncryptedRecord, type Settings, type ThoughtRecord } from "@/db/types.ts";
 
 /** Fixed primary key for the singleton settings row. */
 export const SETTINGS_KEY = 1 as const;
@@ -9,12 +9,17 @@ interface SettingsRow extends Settings {
 }
 
 const db = new Dexie("selfware") as Dexie & {
-  records: EntityTable<ThoughtRecord, "id">;
+  records: Table<ThoughtRecord | EncryptedRecord, number>;
   settings: EntityTable<SettingsRow, "id">;
 };
 
 db.version(1).stores({
   records: "++id, status, createdAt, eventDate",
+  settings: "id",
+});
+
+db.version(2).stores({
+  records: "++id",
   settings: "id",
 });
 

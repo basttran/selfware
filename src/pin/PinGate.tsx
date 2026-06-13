@@ -2,7 +2,7 @@ import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSettings } from "@/app/SettingsProvider.tsx";
 import { Button } from "@/components/Button.tsx";
-import { hashPin } from "@/pin/pin.ts";
+import { hashPin, unlockWithPin } from "@/pin/pin.ts";
 
 /**
  * Blocks the app behind a PIN when one is set. Unlock state lives in memory,
@@ -19,6 +19,7 @@ export function PinGate({ children }: { children: ReactNode }) {
 
   async function submit() {
     if ((await hashPin(code)) === pinHash) {
+      await unlockWithPin(code);
       setUnlocked(true);
     } else {
       setError(true);

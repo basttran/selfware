@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { AppBar } from "@/components/AppBar.tsx";
 import { GitHubLink } from "@/components/GitHubLink.tsx";
-import { db } from "@/db/db.ts";
+import { getAllRecords } from "@/db/records.ts";
 import type { ThoughtRecord } from "@/db/types.ts";
 import { EmotionChips } from "@/features/history/EmotionChips.tsx";
 import { formatDate, formatEventDate } from "@/lib/format.ts";
@@ -11,7 +11,10 @@ import { formatDate, formatEventDate } from "@/lib/format.ts";
 export function HistoryScreen() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const records = useLiveQuery(() => db.records.orderBy("createdAt").reverse().toArray(), []);
+  const records = useLiveQuery(async () => {
+    const all = await getAllRecords();
+    return all.sort((a, b) => b.createdAt - a.createdAt);
+  }, []);
 
   return (
     <div className="min-h-full pb-24">

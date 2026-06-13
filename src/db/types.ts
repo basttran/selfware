@@ -55,10 +55,23 @@ export interface ThoughtRecord {
 export interface Settings {
   /** SHA-256 hex of the access PIN; undefined = no lock. */
   pinHash?: string;
+  /** base64url-encoded 16-byte PBKDF2 salt; present iff a PIN is set. */
+  encSalt?: string;
   /** Per-emotion color overrides (CSS color strings); missing keys use defaults. */
   emotionColors: Partial<Record<PrimaryEmotion, string>>;
   /** UI locale; only "fr" in V1. */
   locale: string;
+}
+
+/** A record stored encrypted in IndexedDB when a PIN is active. */
+export interface EncryptedRecord {
+  id?: number;
+  /** base64url(IV[12 bytes] || AES-256-GCM ciphertext of JSON(ThoughtRecord without id)). */
+  data: string;
+}
+
+export function isEncryptedRecord(r: ThoughtRecord | EncryptedRecord): r is EncryptedRecord {
+  return "data" in r && !("event" in r);
 }
 
 export const DEFAULT_SETTINGS: Settings = {

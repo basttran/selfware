@@ -196,16 +196,20 @@
     "title": "Réglages",
     "pin": {
       "title": "Code d'accès",
-      "description": "Protégez l'ouverture de l'application par un code. Il ne chiffre pas les données.",
+      "description": "Définissez un code pour verrouiller l'app et chiffrer vos données sur l'appareil.",
       "enable": "Activer un code",
       "disable": "Désactiver le code",
+      "change": "Changer le code",
       "set": "Définir le code",
+      "current": "Code actuel",
+      "new": "Nouveau code",
       "enter": "Entrez votre code",
       "confirm": "Confirmez le code",
       "mismatch": "Les codes ne correspondent pas.",
       "wrong": "Code incorrect.",
       "enabled": "Code activé.",
-      "disabled": "Code désactivé."
+      "disabled": "Code désactivé.",
+      "working": "Traitement…"
     },
     "data": {
       "title": "Mes données",
