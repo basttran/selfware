@@ -104,6 +104,7 @@
     "surprise": "Surprise"
   },
   "distortion": {
+    "hint": { "label": "Voir la définition" },
     "all-or-nothing": {
       "name": "Pensée dichotomique (tout ou rien)",
       "definition": "Penser que si une chose n'est pas exactement comme on le souhaite, c'est un échec. Une perte totale des nuances.",

@@ -6,26 +6,26 @@
  * (see src/theme/theme.ts -> applyEmotionColors).
  */
 @theme {
-  --color-surface: #f7f8fa;
-  --color-surface-raised: #ffffff;
-  --color-border: #e2e6ec;
-  --color-text: #1f2933;
-  --color-text-muted: #5b6776;
-  --color-primary: #3f7d80; /* desaturated teal */
-  --color-primary-contrast: #ffffff;
-  --color-accent-soft: #eaf1f1;
-  --color-danger: #b4564f; /* muted, never aggressive red */
+  --color-surface: oklch(0.978 0.006 247);
+  --color-surface-raised: oklch(0.999 0.003 220);
+  --color-border: oklch(0.913 0.010 248);
+  --color-text: oklch(0.210 0.022 243);
+  --color-text-muted: oklch(0.470 0.018 248);
+  --color-primary: oklch(0.530 0.065 196); /* desaturated teal */
+  --color-primary-contrast: oklch(0.999 0.003 220);
+  --color-accent-soft: oklch(0.951 0.013 196);
+  --color-danger: oklch(0.490 0.098 24); /* muted, never aggressive red */
 
   --radius-card: 1rem;
   --radius-control: 0.625rem;
 
   /* Default emotion palette (Ekman primaries) — soft, desaturated */
-  --color-emotion-sadness: #6b8cc7;
-  --color-emotion-anger: #c77b6b;
-  --color-emotion-fear: #8a7bbf;
-  --color-emotion-disgust: #7ba36b;
-  --color-emotion-joy: #d8b25e;
-  --color-emotion-surprise: #5ea7b0;
+  --color-emotion-sadness: oklch(0.608 0.090 267);
+  --color-emotion-anger: oklch(0.626 0.090 28);
+  --color-emotion-fear: oklch(0.573 0.082 300);
+  --color-emotion-disgust: oklch(0.630 0.082 139);
+  --color-emotion-joy: oklch(0.762 0.092 74);
+  --color-emotion-surprise: oklch(0.672 0.070 205);
 }
 
 :root {
@@ -39,15 +39,15 @@
  */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-surface: #0f172a;
-    --color-surface-raised: #1a2436;
-    --color-border: #2a374d;
-    --color-text: #e7ecf3;
-    --color-text-muted: #93a1b5;
-    --color-primary: #5fa8ab;
-    --color-primary-contrast: #07121f;
-    --color-accent-soft: #16222f;
-    --color-danger: #d18078;
+    --color-surface: oklch(0.125 0.030 255);
+    --color-surface-raised: oklch(0.175 0.025 252);
+    --color-border: oklch(0.255 0.025 250);
+    --color-text: oklch(0.932 0.012 250);
+    --color-text-muted: oklch(0.675 0.020 250);
+    --color-primary: oklch(0.680 0.072 196);
+    --color-primary-contrast: oklch(0.085 0.022 255);
+    --color-accent-soft: oklch(0.155 0.023 252);
+    --color-danger: oklch(0.635 0.095 24);
   }
 }
 

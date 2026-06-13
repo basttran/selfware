@@ -22,13 +22,13 @@ export function WizardStep({ stepKey, state, dispatch }: Props) {
     <section className="space-y-4">
       <header>
         <div className="flex items-center gap-2">
-          <h2 className="font-semibold text-lg">{t(`wizard.step.${stepKey}.title`)}</h2>
+          <h2 id="wizard-step-heading" className="font-semibold text-lg">{t(`wizard.step.${stepKey}.title`)}</h2>
           <button
             type="button"
             aria-expanded={hintOpen}
             aria-label={t(hintOpen ? "wizard.hint.hide" : "wizard.hint.show")}
             onClick={() => setHintOpen((open) => !open)}
-            className="flex h-6 w-6 items-center justify-center rounded-full bg-border text-text"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-border text-text"
           >
             <HintToggleIcon open={hintOpen} />
           </button>
@@ -58,6 +58,7 @@ function StepFields({ stepKey, state, dispatch }: Props) {
       return (
         <div className="space-y-3">
           <TextArea
+            aria-labelledby="wizard-step-heading"
             value={state.event}
             placeholder={t("wizard.step.event.placeholder")}
             onChange={(e) => dispatch({ type: "setField", field: "event", value: e.target.value })}
@@ -104,6 +105,7 @@ function StepFields({ stepKey, state, dispatch }: Props) {
     case "contradictingFacts":
       return (
         <TextArea
+          aria-labelledby="wizard-step-heading"
           value={state[stepKey]}
           placeholder={t(`wizard.step.${stepKey}.placeholder`)}
           onChange={(e) => dispatch({ type: "setField", field: stepKey, value: e.target.value })}
@@ -121,6 +123,7 @@ function StepFields({ stepKey, state, dispatch }: Props) {
     case "alternativeThoughts":
       return (
         <TextArea
+          aria-labelledby="wizard-step-heading"
           value={state.alternativeThoughts}
           placeholder={t("wizard.step.alternativeThoughts.placeholder")}
           onChange={(e) =>

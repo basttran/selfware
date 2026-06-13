@@ -34,6 +34,7 @@ export function EmotionInput({ emotions, onSetIntensity }: Props) {
               value={intensity}
               onChange={(v) => onSetIntensity(meta.id, v)}
               color={`var(${meta.cssVar})`}
+              ariaLabel={t(`emotion.${meta.id}`)}
             />
             <span
               className={`text-center font-semibold text-sm tabular-nums ${

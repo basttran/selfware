@@ -21,7 +21,7 @@ export function AppBar({ title, onBack, back, right }: Props) {
           type="button"
           aria-label="Retour"
           onClick={handleBack}
-          className="-ml-1 rounded-control px-2 py-1 text-text-muted text-xl hover:text-text"
+          className="-ml-2 min-h-11 min-w-11 rounded-control px-3 py-2 text-text-muted text-xl hover:text-text"
         >
           ‹
         </button>

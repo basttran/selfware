@@ -161,7 +161,14 @@ export function WizardScreen({ mode }: Props) {
 
       <footer className="fixed bottom-0 left-0 right-0 z-10 border-border border-t bg-surface/90 p-3 backdrop-blur">
         <div className="mx-auto max-w-2xl">
-          <div className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-border">
+          <div
+            role="progressbar"
+            aria-label={t("wizard.progressLabel")}
+            aria-valuenow={state.step + 1}
+            aria-valuemin={1}
+            aria-valuemax={STEP_COUNT}
+            className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-border"
+          >
             <div
               className="h-full rounded-full bg-primary transition-all"
               style={{ width: `${((state.step + 1) / STEP_COUNT) * 100}%` }}

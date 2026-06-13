@@ -38,10 +38,10 @@ export function DistortionPicker({ selected, onToggle }: Props) {
                 />
                 <button
                   type="button"
-                  aria-label="Définition"
+                  aria-label={t("distortion.hint.label")}
                   aria-expanded={isOpen}
                   onClick={() => setExpanded(isOpen ? null : id)}
-                  className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-soft text-text-muted"
+                  className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-text-muted"
                 >
                   <HintToggleIcon open={isOpen} />
                 </button>
