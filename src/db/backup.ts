@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { db, SETTINGS_KEY } from "@/db/db.ts";
+import { encryptRecord } from "@/crypto/crypto.ts";
+import { getKey } from "@/crypto/keystore.ts";
+import { db, getSettings, SETTINGS_KEY } from "@/db/db.ts";
+import { getAllRecords } from "@/db/records.ts";
 import { PRIMARY_EMOTIONS } from "@/db/types.ts";
 
 const BACKUP_VERSION = 1;
@@ -43,13 +46,13 @@ const backupSchema = z.object({
 
 export type Backup = z.infer<typeof backupSchema>;
 
-/** Serialize all records + settings to a downloadable JSON string. */
+/** Serialize all records (decrypted) + settings to a downloadable JSON string. */
 export async function exportJSON(exportedAt: number): Promise<string> {
   const [records, settingsRow] = await Promise.all([
-    db.records.toArray(),
+    getAllRecords(),
     db.settings.get(SETTINGS_KEY),
   ]);
-  const { id: _id, ...settings } = settingsRow ?? {
+  const { id: _id, encSalt: _salt, pinHash: _hash, ...settings } = settingsRow ?? {
     id: SETTINGS_KEY,
     emotionColors: {},
     locale: "fr",
@@ -61,9 +64,27 @@ export async function exportJSON(exportedAt: number): Promise<string> {
 /** Validate and restore a backup, replacing all existing data. Throws on invalid input. */
 export async function importJSON(raw: string): Promise<void> {
   const parsed = backupSchema.parse(JSON.parse(raw));
+  const key = getKey();
+  const currentSettings = await getSettings();
+
+  // Encrypt records outside the transaction (WebCrypto can't run inside Dexie transactions)
+  const recordsToStore = key
+    ? await Promise.all(
+        parsed.records.map(async ({ id: _id, ...rest }) => ({
+          data: await encryptRecord(key, rest),
+        })),
+      )
+    : parsed.records.map(({ id: _id, ...rest }) => rest);
+
   await db.transaction("rw", db.records, db.settings, async () => {
     await db.records.clear();
-    await db.records.bulkAdd(parsed.records.map(({ id: _id, ...rest }) => rest));
-    await db.settings.put({ id: SETTINGS_KEY, ...parsed.settings });
+    await db.records.bulkAdd(recordsToStore as Parameters<typeof db.records.bulkAdd>[0]);
+    await db.settings.put({
+      id: SETTINGS_KEY,
+      ...parsed.settings,
+      // Keep current device's PIN and encryption state
+      pinHash: currentSettings.pinHash,
+      encSalt: currentSettings.encSalt,
+    });
   });
 }
