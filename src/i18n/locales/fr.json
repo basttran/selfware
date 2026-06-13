@@ -217,6 +217,9 @@
       "importError": "Fichier invalide.",
       "exported": "Données exportées."
     },
+    "theme": {
+      "title": "Thème"
+    },
     "colors": {
       "title": "Couleurs des émotions",
       "description": "Personnalisez la couleur de chaque émotion.",
