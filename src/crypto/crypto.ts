@@ -50,8 +50,11 @@ function toBase64url(bytes: Uint8Array): string {
     .replace(/=/g, "");
 }
 
-function fromBase64url(s: string): Uint8Array {
+function fromBase64url(s: string): Uint8Array<ArrayBuffer> {
   const b64 = s.replace(/-/g, "+").replace(/_/g, "/");
   const padded = b64 + "=".repeat((4 - (b64.length % 4)) % 4);
-  return Uint8Array.from(atob(padded), (c) => c.charCodeAt(0));
+  const raw = atob(padded);
+  const bytes = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+  return bytes;
 }
