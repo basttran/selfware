@@ -24,26 +24,28 @@ export function DistortionPicker({ selected, onToggle }: Props) {
               isSelected ? "border-primary" : "border-border"
             }`}
           >
-            <div className="flex items-center gap-2 p-3">
-              <input
-                type="checkbox"
-                checked={isSelected}
-                onChange={() => onToggle(id)}
-                className="size-4 accent-primary"
-                id={`distortion-${id}`}
-              />
-              <label htmlFor={`distortion-${id}`} className="flex-1 text-sm">
+            <div className="flex flex-col gap-2 p-3">
+              <label htmlFor={`distortion-${id}`} className="text-sm min-h-[2lh]">
                 {t(`distortion.${id}.name`)}
               </label>
-              <button
-                type="button"
-                aria-label="Définition"
-                aria-expanded={isOpen}
-                onClick={() => setExpanded(isOpen ? null : id)}
-                className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-soft text-text-muted"
-              >
-                <HintToggleIcon open={isOpen} />
-              </button>
+              <div className="flex items-center justify-between">
+                <input
+                  type="checkbox"
+                  checked={isSelected}
+                  onChange={() => onToggle(id)}
+                  className="size-4 accent-primary"
+                  id={`distortion-${id}`}
+                />
+                <button
+                  type="button"
+                  aria-label="Définition"
+                  aria-expanded={isOpen}
+                  onClick={() => setExpanded(isOpen ? null : id)}
+                  className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-soft text-text-muted"
+                >
+                  <HintToggleIcon open={isOpen} />
+                </button>
+              </div>
             </div>
             {isOpen && (
               <div className="space-y-2 border-border border-t px-3 py-2 text-text-muted text-xs leading-relaxed">
