@@ -11,9 +11,9 @@ export function SettingsScreen() {
     <div className="min-h-full pb-8">
       <AppBar title={t("settings.title")} back="/" />
       <main className="space-y-4 p-4">
-        <ThemeSettings />
         <PinSettings />
         <DataSettings />
+        <ThemeSettings />
         <ColorSettings />
       </main>
     </div>
