@@ -106,7 +106,7 @@
   "distortion": {
     "hint": { "label": "Voir la définition" },
     "all-or-nothing": {
-      "name": "Pensée dichotomique (tout ou rien)",
+      "name": "Pensée dichotomique",
       "definition": "Penser que si une chose n'est pas exactement comme on le souhaite, c'est un échec. Une perte totale des nuances.",
       "example": "« Si je n'ai pas été embauché, c'est que je ne vaux rien », « Si je n'ai pas 20/20, c'est que je suis nul. »"
     },
@@ -116,7 +116,7 @@
       "example": "« Elle n'a pas voulu sortir avec moi ; je n'arriverai jamais à sortir avec quelqu'un. »"
     },
     "selective-abstraction": {
-      "name": "Abstraction sélective (filtre mental)",
+      "name": "Abstraction sélective",
       "definition": "Un filtre mental qui ne laisse percevoir que le côté négatif des choses ; on se focalise sur les détails déplaisants.",
       "example": "Une soirée agréable jugée « totalement gâchée » parce que quelqu'un a renversé du café sur sa chemise."
     },
@@ -141,7 +141,7 @@
       "example": "« Je me sens désespéré, donc mes problèmes sont forcément impossibles à résoudre. »"
     },
     "should-statements": {
-      "name": "Fausses obligations (« je dois »)",
+      "name": "Fausses obligations",
       "definition": "Se fixer arbitrairement des buts à atteindre (je dois, je devrais…), pour soi ou pour les autres.",
       "example": "« Je dois absolument faire le ménage. » ; « Après tout ce que j'ai fait, il pourrait au moins être reconnaissant. »"
     },
