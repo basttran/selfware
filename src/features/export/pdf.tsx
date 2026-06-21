@@ -28,7 +28,7 @@ function emotionScores(
   return EMOTIONS.map((meta) => {
     const score = map.get(meta.id);
     return {
-      label: i18n.t(`emotion.${meta.id}`),
+      label: `${meta.emoji} ${i18n.t(`emotion.${meta.id}`)}`,
       score: score != null ? `${score}/10` : "—",
     };
   });
@@ -218,25 +218,29 @@ function emotionsText(emotions: Emotion[]): string {
   const map = new Map(emotions.map((e) => [e.primary, e]));
   return EMOTIONS.map((meta) => {
     const e = map.get(meta.id);
-    if (!e) return `${i18n.t(`emotion.${meta.id}`)} —`;
+    const name = `${meta.emoji} ${i18n.t(`emotion.${meta.id}`)}`;
+    if (!e) return `${name} —`;
     const after = e.resultIntensity != null ? ` → ${e.resultIntensity}` : "";
-    return `${i18n.t(`emotion.${meta.id}`)} ${e.initialIntensity}/10${after}`;
+    return `${name} ${e.initialIntensity}/10${after}`;
   }).join("\n");
 }
 
 const tableStyles = StyleSheet.create({
   page: { padding: 20, fontSize: 8, color: COLORS.text, fontFamily: "Helvetica" },
-  row: { flexDirection: "row", borderBottom: `1px solid ${COLORS.border}` },
-  headerRow: { flexDirection: "row", backgroundColor: "#eef3f3" },
-  cell: { flex: 1, padding: 5, borderRight: `1px solid ${COLORS.border}` },
+  headerRow: { flexDirection: "row", borderBottom: `2px solid ${COLORS.border}`, marginBottom: 4 },
   headerCell: {
     flex: 1,
-    padding: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 4,
     borderRight: `1px solid ${COLORS.border}`,
     fontFamily: "Helvetica-Bold",
     color: COLORS.primary,
     fontSize: 7,
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
   },
+  row: { flexDirection: "row", borderBottom: `1px solid ${COLORS.border}` },
+  cell: { flex: 1, padding: 5, borderRight: `1px solid ${COLORS.border}` },
   value: { lineHeight: 1.3 },
 });
 
