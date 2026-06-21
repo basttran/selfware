@@ -150,7 +150,7 @@ function EmotionGrid({ record, kind }: { record: ThoughtRecord; kind: "initial" 
     ]),
   );
   return (
-    <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
+    <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
       {EMOTIONS.map((meta) => {
         const score = scoreMap.get(meta.id);
         return (
