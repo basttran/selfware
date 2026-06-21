@@ -62,6 +62,7 @@ const s = StyleSheet.create({
     padding: 6,
     marginBottom: 8,
   },
+  blockLabelRow: { flexDirection: "row", alignItems: "center", gap: 4, marginBottom: 4 },
   blockLabel: {
     fontSize: 7,
     color: COLORS.primary,
@@ -70,6 +71,7 @@ const s = StyleSheet.create({
     letterSpacing: 0.5,
     marginBottom: 4,
   },
+  blockLabelSuffix: { fontSize: 8, color: COLORS.muted, fontFamily: "Helvetica" },
   blockValue: { lineHeight: 1.4 },
 
   // emotion grid: 2 columns of 3
@@ -86,19 +88,31 @@ const s = StyleSheet.create({
 
 // ── sub-components ────────────────────────────────────────────────────────────
 
-function Block({ label, children }: { label: string; children: React.ReactNode }) {
+function BlockHeader({ label, suffix }: { label: string; suffix?: string }) {
+  if (suffix) {
+    return (
+      <View style={s.blockLabelRow}>
+        <Text style={{ ...s.blockLabel, marginBottom: 0 }}>{label}</Text>
+        <Text style={s.blockLabelSuffix}>{suffix}</Text>
+      </View>
+    );
+  }
+  return <Text style={s.blockLabel}>{label}</Text>;
+}
+
+function Block({ label, labelSuffix, children }: { label: string; labelSuffix?: string; children: React.ReactNode }) {
   return (
     <View style={s.block}>
-      <Text style={s.blockLabel}>{label}</Text>
+      <BlockHeader label={label} suffix={labelSuffix} />
       {children}
     </View>
   );
 }
 
-function BlockFull({ label, children }: { label: string; children: React.ReactNode }) {
+function BlockFull({ label, labelSuffix, children }: { label: string; labelSuffix?: string; children: React.ReactNode }) {
   return (
     <View style={s.blockFull}>
-      <Text style={s.blockLabel}>{label}</Text>
+      <BlockHeader label={label} suffix={labelSuffix} />
       {children}
     </View>
   );
@@ -153,7 +167,10 @@ function CardDoc({ records }: { records: ThoughtRecord[] }) {
 
           {/* Section 1 — Événement | Pensées automatiques */}
           <View style={s.row}>
-            <Block label={tr("detail.sections.event")}>
+            <Block
+              label={tr("detail.sections.event")}
+              labelSuffix={recordWhen(record) ? `(${recordWhen(record)})` : undefined}
+            >
               <Text style={s.blockValue}>{orDash(record.event)}</Text>
             </Block>
             <Block label={tr("detail.sections.automaticThoughts")}>
@@ -205,7 +222,14 @@ function CardDoc({ records }: { records: ThoughtRecord[] }) {
 function sectionsOf(record: ThoughtRecord): { label: string; value: string }[] {
   const tr = i18n.t;
   return [
-    { label: tr("detail.sections.event"), value: orDash(record.event) },
+    {
+      label: tr("detail.sections.event"),
+      value: (() => {
+        const when = recordWhen(record);
+        const text = record.event.trim();
+        return [when ? `(${when})` : null, text || null].filter(Boolean).join(" ") || "—";
+      })(),
+    },
     { label: tr("detail.sections.emotions"), value: emotionsText(record.emotions) },
     { label: tr("detail.sections.automaticThoughts"), value: orDash(record.automaticThoughts) },
     { label: tr("detail.sections.supportingFacts"), value: orDash(record.supportingFacts) },
