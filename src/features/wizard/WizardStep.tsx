@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { HintToggleIcon } from "@/components/HintToggleIcon.tsx";
 import { IntensitySlider } from "@/components/IntensitySlider.tsx";
 import { TextArea } from "@/components/TextArea.tsx";
-import { EMOTIONS, getEmotionMeta } from "@/data/emotions.ts";
+import { EMOTIONS } from "@/data/emotions.ts";
 import { DistortionPicker } from "@/features/wizard/DistortionPicker.tsx";
 import { EmotionInput } from "@/features/wizard/EmotionInput.tsx";
 import type { StepKey, WizardAction, WizardState } from "@/features/wizard/wizardState.ts";

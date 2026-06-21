@@ -6,7 +6,7 @@ import { AppBar } from "@/components/AppBar.tsx";
 import { Button } from "@/components/Button.tsx";
 import { ConfirmDialog } from "@/components/ConfirmDialog.tsx";
 import type { DistortionId } from "@/data/distortions.ts";
-import { EMOTIONS, getEmotionMeta } from "@/data/emotions.ts";
+import { EMOTIONS } from "@/data/emotions.ts";
 import { deleteRecord, getRecord } from "@/db/records.ts";
 import type { ThoughtRecord } from "@/db/types.ts";
 import { ExportDialog } from "@/features/export/ExportDialog.tsx";
