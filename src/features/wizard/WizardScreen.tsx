@@ -6,6 +6,7 @@ import { Button } from "@/components/Button.tsx";
 import { DISTORTION_IDS } from "@/data/distortions.ts";
 import { createRecord, getRecord, saveRecord } from "@/db/records.ts";
 import { WizardStep } from "@/features/wizard/WizardStep.tsx";
+import { formatEventDate } from "@/lib/format.ts";
 import {
   fromRecord,
   hasStepInput,
@@ -23,11 +24,16 @@ interface Props {
 }
 
 /** Collapsible recap of an earlier step's answer, closed by default. */
-function StepRecap({ title, text }: { title: string; text: string }) {
+function StepRecap({ title, subtitle, text }: { title: string; subtitle?: string; text: string }) {
   return (
     <details className="group mx-4 mt-3 rounded-card border border-border bg-surface-raised">
       <summary className="flex cursor-pointer select-none items-center justify-between p-3 text-text-muted text-xs uppercase tracking-wide [&::-webkit-details-marker]:hidden">
-        {title}
+        <span>
+          {title}
+          {subtitle && (
+            <span className="ml-1 text-sm normal-case tracking-normal">({subtitle})</span>
+          )}
+        </span>
         <span
           aria-hidden
           className="flex h-6 w-6 items-center justify-center rounded-full bg-border text-text transition-transform group-open:-rotate-90"
@@ -132,7 +138,13 @@ export function WizardScreen({ mode }: Props) {
         onBack={() => void leave()}
       />
 
-      {showEventRecap && <StepRecap title={t("wizard.step.event.title")} text={state.event} />}
+      {showEventRecap && (
+        <StepRecap
+          title={t("wizard.step.event.title")}
+          subtitle={formatEventDate(state.eventDate, state.eventTime) || undefined}
+          text={state.event}
+        />
+      )}
       {showThoughtsRecap && (
         <StepRecap
           title={t("wizard.step.automaticThoughts.title")}
