@@ -1,4 +1,9 @@
-import { Document, Page, pdf, StyleSheet, Text, View } from "@react-pdf/renderer";
+import { Document, Font, Page, pdf, StyleSheet, Text, View } from "@react-pdf/renderer";
+
+Font.registerEmojiSource({
+  format: "png",
+  url: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/",
+});
 import i18n from "i18next";
 import { EMOTIONS } from "@/data/emotions.ts";
 import type { Emotion, ThoughtRecord } from "@/db/types.ts";
