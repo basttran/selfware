@@ -48,6 +48,7 @@ export type WizardAction =
   | { type: "setField"; field: keyof RecordDraft; value: string }
   | { type: "setStep"; step: number }
   | { type: "setEmotionIntensity"; primary: PrimaryEmotion; intensity: number }
+  | { type: "setResultIntensity"; primary: PrimaryEmotion; intensity: number }
   | { type: "updateEmotion"; index: number; patch: Partial<Emotion> }
   | { type: "toggleDistortion"; id: string };
 
@@ -88,6 +89,20 @@ export function wizardReducer(state: WizardState, action: WizardAction): WizardS
               e.primary === action.primary ? { ...e, initialIntensity: action.intensity } : e,
             )
           : [...state.emotions, { primary: action.primary, initialIntensity: action.intensity }],
+      };
+    }
+    case "setResultIntensity": {
+      const exists = state.emotions.some((e) => e.primary === action.primary);
+      return {
+        ...state,
+        emotions: exists
+          ? state.emotions.map((e) =>
+              e.primary === action.primary ? { ...e, resultIntensity: action.intensity } : e,
+            )
+          : [
+              ...state.emotions,
+              { primary: action.primary, initialIntensity: 0, resultIntensity: action.intensity },
+            ],
       };
     }
     case "updateEmotion":
