@@ -133,34 +133,39 @@ function StepFields({ stepKey, state, dispatch }: Props) {
       );
 
     case "result": {
-      const emotionMap = new Map(state.emotions.map((e) => [e.primary, e]));
+      const resultMap = new Map(state.emotions.map((e) => [e.primary, e.resultIntensity ?? 0]));
       return (
-        <ul className="space-y-4">
+        <ul className="grid grid-cols-[1fr_2fr_1fr] items-center gap-x-3 gap-y-4">
           {EMOTIONS.map((meta) => {
-            const emotion = emotionMap.get(meta.id);
+            const intensity = resultMap.get(meta.id) ?? 0;
             return (
-              <li
-                key={meta.id}
-                className="rounded-card border border-border bg-surface-raised p-3"
-              >
-                <div className="mb-2 flex items-center justify-between text-sm">
-                  <span className="font-medium">
-                    {meta.emoji} {t(`emotion.${meta.id}`)}
-                  </span>
-                  <span className="text-text-muted">
-                    {emotion
-                      ? `${t("wizard.step.result.before")} : ${emotion.initialIntensity}/10`
-                      : "—"}
-                  </span>
-                </div>
+              <li key={meta.id} className="col-span-3 grid grid-cols-subgrid items-center">
+                <span
+                  className={`justify-self-start whitespace-nowrap rounded-full border px-3 py-1.5 text-sm ${
+                    intensity > 0 ? "" : "border-border opacity-50"
+                  }`}
+                  style={intensity > 0 ? { borderColor: `var(${meta.cssVar})` } : undefined}
+                >
+                  <span className="mr-1">{meta.emoji}</span>
+                  {t(`emotion.${meta.id}`)}
+                </span>
                 <IntensitySlider
-                  value={emotion?.resultIntensity ?? emotion?.initialIntensity ?? 0}
+                  min={0}
+                  showValue={false}
+                  value={intensity}
                   onChange={(v) =>
                     dispatch({ type: "setResultIntensity", primary: meta.id, intensity: v })
                   }
                   color={`var(${meta.cssVar})`}
-                  label={t("wizard.step.result.now")}
+                  ariaLabel={t(`emotion.${meta.id}`)}
                 />
+                <span
+                  className={`text-center font-semibold text-sm tabular-nums ${
+                    intensity > 0 ? "text-text" : "text-text-muted"
+                  }`}
+                >
+                  {intensity > 0 ? `${intensity}/10` : "–"}
+                </span>
               </li>
             );
           })}
