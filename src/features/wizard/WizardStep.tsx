@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { HintToggleIcon } from "@/components/HintToggleIcon.tsx";
 import { IntensitySlider } from "@/components/IntensitySlider.tsx";
 import { TextArea } from "@/components/TextArea.tsx";
-import { getEmotionMeta } from "@/data/emotions.ts";
+import { EMOTIONS, getEmotionMeta } from "@/data/emotions.ts";
 import { DistortionPicker } from "@/features/wizard/DistortionPicker.tsx";
 import { EmotionInput } from "@/features/wizard/EmotionInput.tsx";
 import type { StepKey, WizardAction, WizardState } from "@/features/wizard/wizardState.ts";
@@ -132,31 +132,31 @@ function StepFields({ stepKey, state, dispatch }: Props) {
         />
       );
 
-    case "result":
-      if (state.emotions.length === 0) {
-        return <p className="text-sm text-text-muted">{t("wizard.step.result.noEmotions")}</p>;
-      }
+    case "result": {
+      const emotionMap = new Map(state.emotions.map((e) => [e.primary, e]));
       return (
         <ul className="space-y-4">
-          {state.emotions.map((emotion, index) => {
-            const meta = getEmotionMeta(emotion.primary);
+          {EMOTIONS.map((meta) => {
+            const emotion = emotionMap.get(meta.id);
             return (
               <li
-                key={emotion.primary}
+                key={meta.id}
                 className="rounded-card border border-border bg-surface-raised p-3"
               >
                 <div className="mb-2 flex items-center justify-between text-sm">
                   <span className="font-medium">
-                    {meta.emoji} {t(`emotion.${emotion.primary}`)}
+                    {meta.emoji} {t(`emotion.${meta.id}`)}
                   </span>
                   <span className="text-text-muted">
-                    {t("wizard.step.result.before")} : {emotion.initialIntensity}/10
+                    {emotion
+                      ? `${t("wizard.step.result.before")} : ${emotion.initialIntensity}/10`
+                      : "—"}
                   </span>
                 </div>
                 <IntensitySlider
-                  value={emotion.resultIntensity ?? emotion.initialIntensity}
+                  value={emotion?.resultIntensity ?? emotion?.initialIntensity ?? 0}
                   onChange={(v) =>
-                    dispatch({ type: "updateEmotion", index, patch: { resultIntensity: v } })
+                    dispatch({ type: "setResultIntensity", primary: meta.id, intensity: v })
                   }
                   color={`var(${meta.cssVar})`}
                   label={t("wizard.step.result.now")}
@@ -166,5 +166,6 @@ function StepFields({ stepKey, state, dispatch }: Props) {
           })}
         </ul>
       );
+    }
   }
 }
