@@ -217,9 +217,13 @@ function CardDoc({ records }: { records: ThoughtRecord[] }) {
   );
 }
 
-// ── table document (unchanged) ────────────────────────────────────────────────
+// ── table document ────────────────────────────────────────────────────────────
 
-function sectionsOf(record: ThoughtRecord): { label: string; value: string }[] {
+type TableSection =
+  | { label: string; value: string; kind?: undefined }
+  | { label: string; kind: "initial" | "result" };
+
+function sectionsOf(record: ThoughtRecord): TableSection[] {
   const tr = i18n.t;
   return [
     {
@@ -230,28 +234,14 @@ function sectionsOf(record: ThoughtRecord): { label: string; value: string }[] {
         return [when ? `(${when})` : null, text || null].filter(Boolean).join(" ") || "—";
       })(),
     },
-    { label: tr("detail.sections.emotions"), value: emotionsText(record.emotions) },
+    { label: tr("detail.sections.emotions"), kind: "initial" },
     { label: tr("detail.sections.automaticThoughts"), value: orDash(record.automaticThoughts) },
     { label: tr("detail.sections.supportingFacts"), value: orDash(record.supportingFacts) },
     { label: tr("detail.sections.contradictingFacts"), value: orDash(record.contradictingFacts) },
     { label: tr("detail.sections.distortions"), value: orDash(distortionsText(record.distortions)) },
-    {
-      label: tr("detail.sections.alternativeThoughts"),
-      value: orDash(record.alternativeThoughts),
-    },
-    { label: tr("detail.sections.result"), value: emotionsText(record.emotions) },
+    { label: tr("detail.sections.alternativeThoughts"), value: orDash(record.alternativeThoughts) },
+    { label: tr("detail.sections.result"), kind: "result" },
   ];
-}
-
-function emotionsText(emotions: Emotion[]): string {
-  const map = new Map(emotions.map((e) => [e.primary, e]));
-  return EMOTIONS.map((meta) => {
-    const e = map.get(meta.id);
-    const name = `${meta.emoji} ${i18n.t(`emotion.${meta.id}`)}`;
-    if (!e) return `${name} —`;
-    const after = e.resultIntensity != null ? ` → ${e.resultIntensity}` : "";
-    return `${name} ${e.initialIntensity}/10${after}`;
-  }).join("\n");
 }
 
 const tableStyles = StyleSheet.create({
@@ -271,7 +261,23 @@ const tableStyles = StyleSheet.create({
   row: { flexDirection: "row", borderBottom: `1px solid ${COLORS.border}` },
   cell: { flex: 1, padding: 5, borderRight: `1px solid ${COLORS.border}` },
   value: { lineHeight: 1.3 },
+  emotionRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 1 },
+  emotionScore: { color: COLORS.muted },
 });
+
+function EmotionCell({ emotions, kind }: { emotions: Emotion[]; kind: "initial" | "result" }) {
+  const scores = emotionScores(emotions, kind);
+  return (
+    <View style={tableStyles.cell}>
+      {scores.map((e) => (
+        <View key={e.label} style={tableStyles.emotionRow}>
+          <Text style={tableStyles.value}>{e.label}</Text>
+          <Text style={{ ...tableStyles.value, ...tableStyles.emotionScore }}>{e.score}</Text>
+        </View>
+      ))}
+    </View>
+  );
+}
 
 function TableDoc({ records }: { records: ThoughtRecord[] }) {
   const headers = sectionsOf(records[0] ?? ({} as ThoughtRecord)).map((s) => s.label);
@@ -287,11 +293,15 @@ function TableDoc({ records }: { records: ThoughtRecord[] }) {
         </View>
         {records.map((record) => (
           <View key={record.id} style={tableStyles.row} wrap={false}>
-            {sectionsOf(record).map((sec) => (
-              <Text key={sec.label} style={{ ...tableStyles.cell, ...tableStyles.value }}>
-                {sec.value}
-              </Text>
-            ))}
+            {sectionsOf(record).map((sec) =>
+              sec.kind ? (
+                <EmotionCell key={sec.label} emotions={record.emotions} kind={sec.kind} />
+              ) : (
+                <Text key={sec.label} style={{ ...tableStyles.cell, ...tableStyles.value }}>
+                  {sec.value}
+                </Text>
+              ),
+            )}
           </View>
         ))}
       </Page>
